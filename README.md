@@ -1,13 +1,13 @@
 # svn 설치
-
+```
 sudo apt-get install subversion subversion-tools libapache2-svn          # svn 서버 설치
 sudo groupadd svn                                                        # svn 그룹 생성
 sudo useradd -d /home/svn -g svn svn -m                                  # svn 계정 생성
 sudo vim /etc/apache2/mods-enabled/dav_svn.conf                          # (옵션) http 사용시 svn 생성
 sudo htpasswd2 -cm /etc/apache2/dav_svn.passwd svnuser                   # (옵션) http 사용시 권한 
-   
+```
 # server side
-
+```
 svnadmin create --fs-type fsfs PROJECT                        # PROJECT 디렉토리 생성
 chmod -R g+w /home/svn/PROJECT                                # 읽고 쓰도록 허가
 chown -R nobody.nogroup /home/svn/PROJECT                     # 아무나 읽고 써라.
@@ -23,16 +23,16 @@ vim /home/svn/PROJECT/conf/svnserve.conf                      # 특정 권한 �
 > wjpaek = wjpaek
 > bsmoon = bsmoon
 > chmod -R a+w /home/svn/PROJECT
-
+```
 # svn 저장 및 백업
-
+```
 svnadmin dump PROJECT > /tmp/PROJECT_svn.dump                            # 서버 옵션 : PROJECT라는 SVN 디렉토리를 통째로 덤프하기
 $ VISUAL=vim crontab -e                                                  # cron 에 주기적으로 등록하기
 28 17 * * * svnadmin dump /home/svn/PROJECT | gzip -9 > Downloads/PROJECT.dump.gz
 scp /home/steeve/Downloads/PROJECT_svn.dump.gz steeve@mpls:/home/steeve/Downloads/PROJECT_dump.160621.gz
-
+```
 # client side
-
+```
 svn list svn://sex.com/sample/ --username ems --password ems             # (단순조회용) 파일을 조회함
 svn import test svn://sex.com/sample/trunk --username ems --password ems # (단순조회용) 파일을 통째로 가져옴
 
@@ -56,6 +56,6 @@ svn diff -r HEAD ReadMe.txt                                              # 내 �
 svn revert                                                               # commit 하기전에 add나 delete한것 취소하기
 svn propedit svn:ignore ./Debug                                          # debug 폴더는 무시하기
 svn export -r242 sex.cpp  doc\sex.cpp                                    # 내 폴더로 임의 버전 받아보기 (유지관리 안됨)
-
+```
 
 
